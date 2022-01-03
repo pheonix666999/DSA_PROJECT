@@ -1,0 +1,28 @@
+import json
+from pathlib import Path 
+
+
+inverted_index = {}
+file = open("forward_index_of_titles.json", "r")
+obj = json.load(file)
+print(len(obj))
+
+temp_inverted = []
+in_index = 0
+
+for i in obj:
+    for j in obj[i]:
+        if j in inverted_index:
+            inverted_index[j].append(i)
+        else:
+            temp_inverted = []
+            temp_inverted.append(i)
+            inverted_index[j] = temp_inverted
+
+
+
+
+invertedString = json.dumps(inverted_index)
+invertedFile = open("inverted_index_of_titles.json", "w")
+invertedFile.write(invertedString)
+invertedFile.close()
